@@ -2,8 +2,7 @@ var trucachanger;
 const input_new  = document.getElementById("new-todo-item-title");
 const input_edit = document.getElementById("edit-todo-item-title");
 
-function supprimer(target) {
-    let balise = target.currentTarget.parentNode;
+function supprimer(balise) {
     if (balise === trucachanger) {
         cancel();
     }
@@ -12,12 +11,12 @@ function supprimer(target) {
     input_new.focus();
 }
 
-function modifier(target) {
-    if (document.getElementById("new-item").attributes["hidden"] === undefined) {
+function modifier(event) {
+    if (!document.getElementById("new-item").hidden) {
         document.getElementById("new-item").toggleAttribute("hidden");
         document.getElementById("edit-item").toggleAttribute("hidden");
     }
-    trucachanger = target.currentTarget.parentNode;
+    trucachanger = event.currentTarget.parentNode;
     document.getElementById("edit-todo-item-title").value = trucachanger.childNodes[0].innerText;
 
     input_edit.focus();
@@ -56,7 +55,7 @@ function ajouter() {
 
         let delete_button = document.createElement("button");
         delete_button.textContent = "Delete";
-        delete_button.addEventListener("click", supr = supprimer);
+        delete_button.addEventListener("click", () => supprimer(list_item));
 
         let edit_button = document.createElement("button");
         edit_button.textContent = "Edit";
